@@ -26,13 +26,20 @@
           <div class="next-action">
             <p id="practiceKind" class="eyebrow">Speaking practice</p>
             <h2 id="practiceTitle">Continue with one gentle drill.</h2>
+            <p id="levelSummary" class="level-summary"></p>
             <p id="practicePrompt" class="prompt-text"></p>
             <div id="hanziText" class="hanzi" lang="zh-Hans"></div>
             <div id="pinyinText" class="pinyin"></div>
             <p id="translationText" class="translation"></p>
+            <div id="speechPanel" class="speech-panel" hidden>
+              <p class="eyebrow">Microphone</p>
+              <p id="speechStatus">Ready when you are.</p>
+              <p id="transcriptText" class="transcript"></p>
+            </div>
             <div class="primary-actions">
               <button id="hearButton" class="secondary-button" type="button">Hear</button>
               <button id="recordButton" class="primary-button" type="button">Practice speaking</button>
+              <button id="continueButton" class="secondary-button" type="button" hidden>Continue</button>
             </div>
           </div>
 
@@ -53,6 +60,7 @@
         <section id="reviewView" class="view" aria-labelledby="reviewTitle">
           <h2 id="reviewTitle">Review</h2>
           <p class="quiet-copy">A calm look at what is becoming familiar and what wants another pass.</p>
+          <div id="levelPanel" class="level-panel"></div>
           <div id="reviewList" class="review-list"></div>
         </section>
 
@@ -61,17 +69,22 @@
           <div class="settings-group">
             <label class="toggle-row">
               <span>Show pinyin</span>
-              <input id="pinyinToggle" type="checkbox" checked />
+              <input id="pinyinToggle" type="checkbox" />
             </label>
             <label class="toggle-row">
-              <span>Cloud mode</span>
-              <input id="cloudToggle" type="checkbox" />
+              <span>LM Studio local AI</span>
+              <input id="localAiToggle" type="checkbox" />
+            </label>
+            <label class="field-row">
+              <span>LM Studio endpoint</span>
+              <input id="localAiEndpoint" type="url" value="http://127.0.0.1:1234/v1/chat/completions" />
             </label>
             <label class="slider-row">
               <span>Audio pace</span>
               <input id="speedSlider" type="range" min="0.6" max="1.0" step="0.1" value="0.8" />
             </label>
-            <p id="cloudCost" class="quiet-copy">Estimated cloud cost: 0 cents. Cloud mode is off.</p>
+            <button id="testLocalAiButton" class="secondary-button" type="button">Test LM Studio</button>
+            <p id="aiStatus" class="quiet-copy">Local AI is off. Speaking feedback uses browser speech recognition only.</p>
           </div>
         </section>
       </main>

@@ -23,6 +23,18 @@ This runs:
 - `npm run audit:security`: scans tracked project files for likely secrets, absolute local paths, identity leaks, telemetry patterns, unsafe remote URLs, and risky service-worker caching.
 - `npm run audit:functional`: checks required PWA files, HTML wiring, JS syntax, Python syntax, manifest validity, service-worker cache coverage, and core app data shape.
 
+## Local AI with LM Studio
+
+Start an OpenAI-compatible LM Studio local server, then open Settings and enable "LM Studio local AI".
+
+Default endpoint:
+
+```txt
+http://127.0.0.1:1234/v1/chat/completions
+```
+
+Speaking practice first uses the browser microphone and speech recognition to capture a Mandarin transcript. When LM Studio local AI is enabled, that transcript is sent only to the configured local endpoint for gentler feedback.
+
 ## Branch strategy
 
 - `main`: stable, releasable app.

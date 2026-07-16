@@ -48,6 +48,7 @@ input {
 .choice-row,
 .mode-tabs,
 .toggle-row,
+.field-row,
 .slider-row {
   display: flex;
   align-items: center;
@@ -108,6 +109,13 @@ h2 {
   line-height: 1.55;
   margin-top: 14px;
   max-width: 58ch;
+}
+
+.level-summary {
+  color: var(--blue);
+  font-weight: 750;
+  line-height: 1.35;
+  margin-top: 12px;
 }
 
 .hanzi {
@@ -195,6 +203,8 @@ input:focus-visible {
 }
 
 .feedback-panel,
+.speech-panel,
+.level-panel,
 .settings-group,
 .review-list {
   background: rgba(255, 250, 242, 0.78);
@@ -207,6 +217,21 @@ input:focus-visible {
 .feedback-panel p:last-child {
   color: var(--ink);
   line-height: 1.5;
+}
+
+.speech-panel {
+  box-shadow: none;
+  margin-top: 28px;
+}
+
+.speech-panel p:last-child {
+  margin-top: 8px;
+}
+
+.transcript {
+  color: var(--blue);
+  font-weight: 700;
+  line-height: 1.45;
 }
 
 .choice-row {
@@ -268,6 +293,12 @@ input:focus-visible {
   margin-top: 8px;
 }
 
+.level-panel h3 {
+  font-size: 1.2rem;
+  line-height: 1.2;
+  margin: 0;
+}
+
 .review-item {
   border-bottom: 1px solid var(--line);
   display: grid;
@@ -300,9 +331,24 @@ input:focus-visible {
 }
 
 .toggle-row,
+.field-row,
 .slider-row {
   justify-content: space-between;
   gap: 18px;
+}
+
+.field-row {
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.field-row input {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  min-height: 44px;
+  padding: 0 12px;
+  width: 100%;
 }
 
 .slider-row input {

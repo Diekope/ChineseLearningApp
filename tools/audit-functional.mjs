@@ -114,10 +114,14 @@ async function checkAppContent() {
   const requiredConcepts = [
     "localStorage",
     "speechSynthesis",
+    "SpeechRecognition",
     "showPinyin",
-    "cloudMode",
+    "localAiMode",
+    "localAiEndpoint",
     "pickNextItem",
     "completeItem",
+    "continueButton",
+    "getLearnerLevel",
   ];
 
   for (const concept of requiredConcepts) {
