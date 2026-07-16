@@ -1,0 +1,15 @@
+{
+  "name": "chineselearn",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local-first Mandarin Chinese learning PWA.",
+  "type": "module",
+  "scripts": {
+    "audit:security": "node tools/audit-security.mjs",
+    "audit:functional": "node tools/audit-functional.mjs",
+    "check": "npm run audit:security && npm run audit:functional"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

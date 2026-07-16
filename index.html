@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f7f3ec" />
+    <title>ChineseLearn</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="app" class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Local mode</p>
+          <h1>ChineseLearn</h1>
+        </div>
+        <button id="settingsButton" class="icon-button" type="button" aria-label="Open settings" title="Settings">
+          <span aria-hidden="true">⚙</span>
+        </button>
+      </header>
+
+      <main>
+        <section id="practiceView" class="view is-active" aria-labelledby="practiceTitle">
+          <div class="next-action">
+            <p id="practiceKind" class="eyebrow">Speaking practice</p>
+            <h2 id="practiceTitle">Continue with one gentle drill.</h2>
+            <p id="practicePrompt" class="prompt-text"></p>
+            <div id="hanziText" class="hanzi" lang="zh-Hans"></div>
+            <div id="pinyinText" class="pinyin"></div>
+            <p id="translationText" class="translation"></p>
+            <div class="primary-actions">
+              <button id="hearButton" class="secondary-button" type="button">Hear</button>
+              <button id="recordButton" class="primary-button" type="button">Practice speaking</button>
+            </div>
+          </div>
+
+          <div id="feedbackPanel" class="feedback-panel" hidden>
+            <p class="eyebrow">Feedback</p>
+            <p id="feedbackText"></p>
+          </div>
+
+          <div class="choice-row" id="choiceRow" hidden></div>
+
+          <nav class="mode-tabs" aria-label="Practice modes">
+            <button class="tab-button is-active" data-mode="speak" type="button">Speak</button>
+            <button class="tab-button" data-mode="listen" type="button">Listen</button>
+            <button class="tab-button" data-mode="read" type="button">Read</button>
+          </nav>
+        </section>
+
+        <section id="reviewView" class="view" aria-labelledby="reviewTitle">
+          <h2 id="reviewTitle">Review</h2>
+          <p class="quiet-copy">A calm look at what is becoming familiar and what wants another pass.</p>
+          <div id="reviewList" class="review-list"></div>
+        </section>
+
+        <section id="settingsView" class="view" aria-labelledby="settingsTitle">
+          <h2 id="settingsTitle">Settings</h2>
+          <div class="settings-group">
+            <label class="toggle-row">
+              <span>Show pinyin</span>
+              <input id="pinyinToggle" type="checkbox" checked />
+            </label>
+            <label class="toggle-row">
+              <span>Cloud mode</span>
+              <input id="cloudToggle" type="checkbox" />
+            </label>
+            <label class="slider-row">
+              <span>Audio pace</span>
+              <input id="speedSlider" type="range" min="0.6" max="1.0" step="0.1" value="0.8" />
+            </label>
+            <p id="cloudCost" class="quiet-copy">Estimated cloud cost: 0 cents. Cloud mode is off.</p>
+          </div>
+        </section>
+      </main>
+
+      <footer class="bottom-nav" aria-label="Main navigation">
+        <button class="nav-button is-active" data-view="practiceView" type="button">Practice</button>
+        <button class="nav-button" data-view="reviewView" type="button">Review</button>
+        <button class="nav-button" data-view="settingsView" type="button">Settings</button>
+      </footer>
+    </div>
+
+    <script src="app.js" type="module"></script>
+  </body>
+</html>

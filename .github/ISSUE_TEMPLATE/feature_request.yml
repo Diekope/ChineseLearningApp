@@ -1,0 +1,27 @@
+name: Feature request
+description: Suggest a focused improvement.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: Learner need
+      description: What should become easier for the learner?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: Describe the smallest useful version.
+    validations:
+      required: true
+  - type: checkboxes
+    id: constraints
+    attributes:
+      label: Product constraints
+      options:
+        - label: Keeps the first screen simple.
+        - label: Avoids scores, streaks, leaderboards, and pressure mechanics.
+        - label: Preserves local-first privacy.

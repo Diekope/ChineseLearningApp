@@ -1,0 +1,41 @@
+name: PWA Smoke Test
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    name: Local server smoke test
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Start local server
+        run: |
+          python3 serve.py &
+          echo $! > server.pid
+          sleep 2
+
+      - name: Check app routes
+        run: |
+          curl --fail --silent --show-error http://127.0.0.1:4173/index.html > /tmp/index.html
+          curl --fail --silent --show-error http://127.0.0.1:4173/app.js > /tmp/app.js
+          curl --fail --silent --show-error http://127.0.0.1:4173/manifest.webmanifest > /tmp/manifest.webmanifest
+          grep -q "ChineseLearn" /tmp/index.html
+
+      - name: Stop local server
+        if: always()
+        run: |
+          if [ -f server.pid ]; then
+            kill "$(cat server.pid)" || true
+          fi
