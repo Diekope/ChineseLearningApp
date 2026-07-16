@@ -1,4 +1,4 @@
-const CACHE_NAME = "chineselearn-v2";
+const CACHE_NAME = "chineselearn-v3";
 const ASSETS = [
   "./",
   "./index.html",

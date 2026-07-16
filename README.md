@@ -12,6 +12,8 @@ Open http://127.0.0.1:4173.
 
 The app can also be opened directly through `index.html`, but the local server is better for PWA behavior.
 
+By default, Practice uses `Mix` mode: each new exercise randomly switches between speaking, listening, and reading. You can still lock a single mode with the Speak, Listen, or Read tabs.
+
 ## Checks
 
 ```sh

@@ -116,6 +116,8 @@ async function checkAppContent() {
     "speechSynthesis",
     "SpeechRecognition",
     "showPinyin",
+    "practiceMode",
+    "getNextExerciseMode",
     "localAiMode",
     "localAiEndpoint",
     "pickNextItem",

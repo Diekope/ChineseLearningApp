@@ -1,4 +1,5 @@
 const STORAGE_KEY = "chineselearn-state-v1";
+const EXERCISE_MODES = ["speak", "listen", "read"];
 
 const library = [
   {
@@ -59,6 +60,7 @@ const library = [
 
 const defaultState = {
   mode: "speak",
+  practiceMode: "mixed",
   activeView: "practiceView",
   showPinyin: false,
   pinyinDefaultVersion: 2,
@@ -116,6 +118,11 @@ function loadState() {
 
   try {
     const parsed = { ...structuredClone(defaultState), ...JSON.parse(saved) };
+    if (!EXERCISE_MODES.includes(parsed.mode)) parsed.mode = getRandomExerciseMode();
+    if (!["mixed", ...EXERCISE_MODES].includes(parsed.practiceMode)) {
+      parsed.practiceMode = "mixed";
+      parsed.mode = getRandomExerciseMode();
+    }
     if (parsed.pinyinDefaultVersion !== defaultState.pinyinDefaultVersion) {
       parsed.showPinyin = false;
       parsed.pinyinDefaultVersion = defaultState.pinyinDefaultVersion;
@@ -156,7 +163,8 @@ function renderPractice() {
     read: "Reading practice",
   };
 
-  els.practiceKind.textContent = modeLabels[state.mode];
+  els.practiceKind.textContent =
+    state.practiceMode === "mixed" ? `Mixed session · ${modeLabels[state.mode]}` : modeLabels[state.mode];
   els.practiceTitle.textContent = getTitleForMode();
   els.levelSummary.textContent = getLearnerLevel().name;
   els.practicePrompt.textContent = currentItem.prompt;
@@ -173,7 +181,7 @@ function renderPractice() {
   if (state.mode === "listen") renderChoices();
 
   document.querySelectorAll(".tab-button").forEach((button) => {
-    button.classList.toggle("is-active", button.dataset.mode === state.mode);
+    button.classList.toggle("is-active", button.dataset.practiceMode === state.practiceMode);
   });
 }
 
@@ -418,12 +426,13 @@ function completeItem(feedback, comfortDelta, options = {}) {
 }
 
 function goToNextItem() {
-    currentItem = pickNextItem();
-    els.feedbackPanel.hidden = true;
-    els.continueButton.hidden = true;
-    els.transcriptText.textContent = "";
-    els.speechStatus.textContent = "Ready when you are.";
-    render();
+  currentItem = pickNextItem();
+  state.mode = getNextExerciseMode();
+  els.feedbackPanel.hidden = true;
+  els.continueButton.hidden = true;
+  els.transcriptText.textContent = "";
+  els.speechStatus.textContent = "Ready when you are.";
+  render();
 }
 
 function showFeedback(message) {
@@ -441,6 +450,16 @@ function shuffle(items) {
     .map((value) => ({ value, sort: Math.random() }))
     .sort((a, b) => a.sort - b.sort)
     .map(({ value }) => value);
+}
+
+function getNextExerciseMode() {
+  if (state.practiceMode !== "mixed") return state.practiceMode;
+  const choices = EXERCISE_MODES.filter((mode) => mode !== state.mode);
+  return choices[Math.floor(Math.random() * choices.length)];
+}
+
+function getRandomExerciseMode() {
+  return EXERCISE_MODES[Math.floor(Math.random() * EXERCISE_MODES.length)];
 }
 
 function normalizeMandarin(value) {
@@ -540,8 +559,12 @@ document.querySelector("#settingsButton").addEventListener("click", () => {
 
 document.querySelectorAll(".tab-button").forEach((button) => {
   button.addEventListener("click", () => {
-    state.mode = button.dataset.mode;
+    state.practiceMode = button.dataset.practiceMode;
+    state.mode = state.practiceMode === "mixed" ? getRandomExerciseMode() : state.practiceMode;
     els.feedbackPanel.hidden = true;
+    els.continueButton.hidden = true;
+    els.transcriptText.textContent = "";
+    els.speechStatus.textContent = "Ready when you are.";
     currentItem = pickNextItem();
     render();
   });
